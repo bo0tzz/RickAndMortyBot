@@ -1,0 +1,43 @@
+package me.bo0tzz.rnmbot;
+
+import com.google.gson.Gson;
+
+import com.google.gson.reflect.TypeToken;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
+
+import java.util.Collections;
+import java.util.List;
+
+/**
+ * Created by boet on 17-3-2016.
+ */
+public class APIHandler {
+    private static final String SEARCH_URL = "https://rm.kmp.pw/api/get?q=";
+    private static final String RANDOM_URL = "https://rm.kmp.pw/api/random";
+
+    public static List<GIFResult> getResults(String query) {
+        Gson gson = new Gson();
+        String response;
+        try {
+            response = Unirest.get(SEARCH_URL + query).asString().getBody();
+        } catch (UnirestException e) {
+            e.printStackTrace();
+            return Collections.EMPTY_LIST;
+        }
+
+        return gson.fromJson(response, new TypeToken<List<GIFResult>>(){}.getType());
+    }
+
+    public static GIFResult getRandomGIF() {
+        Gson gson = new Gson();
+        String response;
+        try {
+            response = Unirest.get(RANDOM_URL).asString().getBody();
+        } catch (UnirestException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return gson.fromJson(response, GIFResult.class);
+    }
+}
