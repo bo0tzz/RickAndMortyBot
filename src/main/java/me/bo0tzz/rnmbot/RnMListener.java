@@ -93,6 +93,10 @@ public class RnMListener implements Listener {
 
     public void randomGIF(CommandMessageReceivedEvent event) {
         GIFResult result = APIHandler.getRandomGIF();
+        if (result == null) {
+            event.getChat().sendMessage("Something went wrong while getting the gif! If this happens again, contact the bot maintainer at @bo0tzz.", main.getTelegramBot());
+            return;
+        }
         InputFile gif;
         try {
             gif = new InputFile(new URL(result.getUrl()));

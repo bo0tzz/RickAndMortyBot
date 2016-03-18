@@ -47,6 +47,15 @@ public class APIHandler {
             e.printStackTrace();
             return null;
         }
-        return gson.fromJson(response, GIFResult.class);
+
+        GIFResult result;
+        try {
+            result = gson.fromJson(response, GIFResult.class);
+        } catch (JsonSyntaxException e) {
+            System.out.println("API returned bad response!");
+            e.printStackTrace();
+            return null;
+        }
+        return result;
     }
 }
