@@ -2,6 +2,7 @@ package me.bo0tzz.rnmbot;
 
 import com.google.gson.Gson;
 
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -26,7 +27,15 @@ public class APIHandler {
             return Collections.EMPTY_LIST;
         }
 
-        return gson.fromJson(response, new TypeToken<List<GIFResult>>(){}.getType());
+        List<GIFResult> results;
+        try {
+            results = gson.fromJson(response, new TypeToken<List<GIFResult>>() {}.getType());
+        } catch (JsonSyntaxException e) {
+            System.out.println("API returned bad response!");
+            e.printStackTrace();
+            return Collections.EMPTY_LIST;
+        }
+        return results;
     }
 
     public static GIFResult getRandomGIF() {
