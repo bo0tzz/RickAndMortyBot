@@ -67,7 +67,15 @@ public class RnMListener implements Listener {
             event.getChat().sendMessage("Don't forget to enter a search term! Usage: /getgif your search term here", main.getTelegramBot());
             return;
         }
-        GIFResult result = APIHandler.getResults(event.getArgsString()).get(0);
+
+        GIFResult result;
+        try {
+            result = APIHandler.getResults(event.getArgsString()).get(0);
+        } catch (IndexOutOfBoundsException e) {
+            event.getChat().sendMessage("Something went wrong while getting the gif! If this happens again, contact the bot maintainer at @bo0tzz.", main.getTelegramBot());
+            return;
+        }
+
         if (result == null) {
             event.getChat().sendMessage("Couldn't find a gif! Try again with a different term.", main.getTelegramBot());
             return;
