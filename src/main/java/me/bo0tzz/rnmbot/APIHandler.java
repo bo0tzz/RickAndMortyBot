@@ -14,7 +14,7 @@ import java.util.List;
  * Created by boet on 17-3-2016.
  */
 public class APIHandler {
-    private static final String SEARCH_URL = "https://rm.kmp.pw/api/get?q=";
+    private static final String SEARCH_URL = "https://rm.kmp.pw/api/search?q=";
     private static final String RANDOM_URL = "https://rm.kmp.pw/api/random";
 
     public static List<GIFResult> getResults(String query) {
