@@ -21,7 +21,7 @@ public class APIHandler {
         Gson gson = new Gson();
         String response;
         try {
-            response = Unirest.get(SEARCH_URL + query).asString().getBody();
+            response = Unirest.get(SEARCH_URL).queryString("q", query).asString().getBody();
         } catch (UnirestException e) {
             e.printStackTrace();
             return Collections.EMPTY_LIST;
