@@ -19,39 +19,21 @@ public class APIHandler {
         HttpResponse<JsonNode> response;
         try {
             response = Unirest.get(SEARCH_URL).queryString("q", query).asJson();
-        } catch (UnirestException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
-
-        JSONArray results;
-        try {
-            results = new JSONArray(response.getBody());
-        } catch (JSONException e) {
-            System.out.println("API returned bad response!");
-            e.printStackTrace();
-            return null;
-        }
-        return results;
+        return response.getBody().getArray();
     }
 
     public static JSONObject getRandomGIF() {
         HttpResponse<JsonNode> response;
         try {
             response = Unirest.get(RANDOM_URL).asJson();
-        } catch (UnirestException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
-
-        JSONObject result;
-        try {
-            result = new JSONObject(response.getBody());
-        } catch (JSONException e) {
-            System.out.println("API returned bad response!");
-            e.printStackTrace();
-            return null;
-        }
-        return result;
+        return response.getBody().getObject();
     }
 }

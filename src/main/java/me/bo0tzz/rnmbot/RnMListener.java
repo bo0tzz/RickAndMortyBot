@@ -38,7 +38,7 @@ public class RnMListener implements Listener {
     public void onInlineQueryReceived(InlineQueryReceivedEvent event) {
         List<InlineQueryResult> queryResults = new ArrayList<>();
         JSONArray gifResults = APIHandler.getResults(event.getQuery().getQuery());
-        if (gifResults == null) {
+        if (gifResults.length() == 0) {
             return;
         }
 
@@ -71,17 +71,16 @@ public class RnMListener implements Listener {
             return;
         }
 
-        JSONObject result;
-        try {
-            result = APIHandler.getResults(event.getArgsString()).getJSONObject(0);
-        } catch (JSONException e) {
+        JSONArray results = APIHandler.getResults(event.getArgsString());
+        if (results == null) {
             event.getChat().sendMessage("Something went wrong while getting the gif! If this happens again, contact the bot maintainer at @bo0tzz.", main.getTelegramBot());
             return;
-        } catch (NullPointerException e) {
+        } else if (results.length() == 0) {
             event.getChat().sendMessage("Couldn't find a gif! Try again with a different term.", main.getTelegramBot());
             return;
         }
 
+        JSONObject result = results.getJSONObject(0);
         InputFile gif;
         try {
             gif = new InputFile(new URL(result.getString("url")));
