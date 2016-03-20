@@ -39,7 +39,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainclass>me.bo0tzz.rnmbot.RnMBot</mainclass>
+                            <mainClass>me.bo0tzz.rnmbot.RnMBot</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
