@@ -66,7 +66,7 @@ public class RnMListener implements Listener {
     }
 
     public void getGIF(CommandMessageReceivedEvent event) {
-        if (event.getArgsString() == null) {
+        if (event.getArgsString() == null || event.getArgsString() == "") {
             event.getChat().sendMessage("Don't forget to enter a search term! Usage: /getgif your search term here", main.getTelegramBot());
             return;
         }
