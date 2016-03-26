@@ -35,32 +35,45 @@ public class RnMListener implements Listener {
     }
 
     public void onInlineQueryReceived(InlineQueryReceivedEvent event) {
+        System.out.println("Inline query received: " + event.getQuery().getQuery());
         List<InlineQueryResult> queryResults = new ArrayList<>();
+        System.out.println("Results list instantiated");
         JSONArray gifResults = APIHandler.getResults(event.getQuery().getQuery());
+        System.out.println("Got results JSON");
         if (gifResults.length() == 0) {
+            System.out.println("Results was empty!");
             return;
         }
 
+        System.out.println("Starting element looping");
         for (int i = 0; i < gifResults.length(); i++) {
             try {
+                System.out.println("Element " + i);
                 if (gifResults.isNull(i)) {
+                    System.out.println("Was null!");
                     break;
                 }
+                System.out.println("Creating URL");
                 URL url = new URL(gifResults.getJSONObject(i).getString("url"));
+                System.out.println("URL is " + url);
                 queryResults.add(InlineQueryResultGif.builder()
                         .gifUrl(url)
                         .thumbUrl(url)
                         .caption(gifResults.getJSONObject(i).getString("text"))
                         .build()
                 );
+                System.out.println("Added result to list");
             } catch (MalformedURLException e) {
+                System.out.println("MalformedURLException");
                 e.printStackTrace();
             } catch (Exception e) {
                 System.out.println("Error on JSONObject: " + gifResults.getJSONObject(i) + " - with query: " + event.getQuery().getQuery());
                 e.printStackTrace();
             }
         }
-
+        System.out.println("Finished element looping");
+        System.out.println("building response");
+        System.out.println("Results list: " + queryResults.toArray());
         InlineQueryResponse response = InlineQueryResponse.builder()
                 .results(queryResults)
                 .build();
