@@ -12,8 +12,8 @@ import org.json.JSONObject;
  * Created by boet on 17-3-2016.
  */
 public class APIHandler {
-    private static final String SEARCH_URL = "https://rm.kmp.pw/api/search?q=";
-    private static final String RANDOM_URL = "https://rm.kmp.pw/api/random";
+    private static final String SEARCH_URL = "https://sl4ry3kp0k.execute-api.eu-west-1.amazonaws.com/prod/search?q=";
+    private static final String RANDOM_URL = "https://sl4ry3kp0k.execute-api.eu-west-1.amazonaws.com/prod/random";
 
     public static JSONArray getResults(String query) {
         System.out.println("Querying for " + query);
