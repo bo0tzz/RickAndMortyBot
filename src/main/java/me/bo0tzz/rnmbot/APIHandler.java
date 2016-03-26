@@ -26,9 +26,6 @@ public class APIHandler {
             return null;
         }
         System.out.println("Response: " + response.getBody().toString());
-        if (response.getBody().getObject().optString("message").equals("Missing Authentication Token")) {
-            return null;
-        }
         return response.getBody().getArray();
     }
 
