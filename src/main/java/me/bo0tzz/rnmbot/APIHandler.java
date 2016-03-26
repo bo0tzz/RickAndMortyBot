@@ -16,13 +16,16 @@ public class APIHandler {
     private static final String RANDOM_URL = "https://rm.kmp.pw/api/random";
 
     public static JSONArray getResults(String query) {
+        System.out.println("Querying for " + query);
         HttpResponse<JsonNode> response;
         try {
             response = Unirest.get(SEARCH_URL).queryString("q", query).asJson();
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("Error getting response!");
             return null;
         }
+        System.out.println("Response: " + response.getBody().toString());
         if (response.getBody().getObject().optString("message").equals("Missing Authentication Token")) {
             return null;
         }
