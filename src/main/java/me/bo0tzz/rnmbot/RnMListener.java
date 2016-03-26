@@ -57,6 +57,8 @@ public class RnMListener implements Listener {
                         .gifUrl(url)
                         .thumbUrl(url)
                         .caption(gifResults.getJSONObject(i).getString("text"))
+                        .gifHeight(660)
+                        .gifWidth(366)
                         .build()
                 );
             } catch (MalformedURLException e) {
