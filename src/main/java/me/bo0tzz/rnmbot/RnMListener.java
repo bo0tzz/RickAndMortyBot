@@ -38,48 +38,29 @@ public class RnMListener implements Listener {
         if (event.getQuery().getQuery().equals("")) {
             return;
         }
-        System.out.println("Inline query received: " + event.getQuery().getQuery());
         List<InlineQueryResult> queryResults = new ArrayList<>();
-        System.out.println("Results list instantiated");
         JSONArray gifResults = APIHandler.getResults(event.getQuery().getQuery());
-        System.out.println("Got results JSON");
         if (gifResults.length() == 0) {
-            System.out.println("Results was empty!");
             return;
         }
 
-        System.out.println("Starting element looping");
         for (int i = 0; i < gifResults.length(); i++) {
             try {
-                System.out.println("Element " + i);
                 if (gifResults.isNull(i)) {
-                    System.out.println("Was null!");
                     break;
                 }
-                System.out.println("Creating URL");
                 URL url = new URL(gifResults.getJSONObject(i).getString("url"));
-                System.out.println("URL is " + url);
                 queryResults.add(InlineQueryResultGif.builder()
                         .gifUrl(url)
                         .thumbUrl(url)
                         .caption(gifResults.getJSONObject(i).getString("text"))
                         .build()
                 );
-                System.out.println("Added result to list");
             } catch (MalformedURLException e) {
-                System.out.println("MalformedURLException");
-                e.printStackTrace();
-            } catch (Exception e) {
-                System.out.println("Error on JSONObject: " + gifResults.getJSONObject(i) + " - with query: " + event.getQuery().getQuery());
                 e.printStackTrace();
             }
         }
-        System.out.println("Finished element looping");
-        System.out.println("building response");
-        System.out.println("Results list: ");
-        queryResults.forEach((r) -> {
-            System.out.println(r);
-        });
+
         InlineQueryResponse response = InlineQueryResponse.builder()
                 .results(queryResults)
                 .build();
@@ -96,11 +77,8 @@ public class RnMListener implements Listener {
             event.getChat().sendMessage("Don't forget to enter a search term! Usage: /get your search term here", main.getTelegramBot());
             return;
         }
-        System.out.println("get command received for " + event.getArgsString());
 
-        System.out.println("Getting results from API");
         JSONArray results = APIHandler.getResults(event.getArgsString());
-        System.out.println("Got API results");
         if (results == null) {
             event.getChat().sendMessage("Something went wrong while getting the gif! If this happens again, contact the bot maintainer at @bo0tzz.", main.getTelegramBot());
             return;
@@ -118,9 +96,7 @@ public class RnMListener implements Listener {
             event.getChat().sendMessage("Something went wrong while getting the gif! If this happens again, contact the bot maintainer at @bo0tzz.", main.getTelegramBot());
             return;
         }
-        System.out.println("Sending message");
         event.getChat().sendMessage(SendableVideoMessage.builder().video(gif).caption(result.getString("text")).build(), main.getTelegramBot());
-        System.out.println("message sent");
     }
 
     public void randomGIF(CommandMessageReceivedEvent event) {

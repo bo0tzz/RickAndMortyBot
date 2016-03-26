@@ -16,7 +16,6 @@ public class APIHandler {
     private static final String RANDOM_URL = "https://sl4ry3kp0k.execute-api.eu-west-1.amazonaws.com/prod/random";
 
     public static JSONArray getResults(String query) {
-        System.out.println("Getting results for " + query);
         HttpResponse<JsonNode> response;
         try {
             response = Unirest.get(SEARCH_URL).queryString("q", query).asJson();
@@ -24,7 +23,6 @@ public class APIHandler {
             e.printStackTrace();
             return null;
         }
-        System.out.println("Got results");
         return response.getBody().getArray();
     }
 
