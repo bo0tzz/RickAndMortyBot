@@ -71,7 +71,6 @@ public class RnMListener implements Listener {
             event.getChat().sendMessage("Don't forget to enter a search term! Usage: /getgif your search term here", main.getTelegramBot());
             return;
         }
-        System.out.println("Get command received for query " + event.getArgsString());
 
         JSONArray results = APIHandler.getResults(event.getArgsString());
         if (results == null) {
