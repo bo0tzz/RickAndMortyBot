@@ -5,7 +5,9 @@ import org.json.JSONObject;
 import pro.zackpollard.telegrambot.api.chat.inline.send.InlineQueryResponse;
 import pro.zackpollard.telegrambot.api.chat.inline.send.results.InlineQueryResult;
 import pro.zackpollard.telegrambot.api.chat.inline.send.results.InlineQueryResultGif;
+import pro.zackpollard.telegrambot.api.chat.message.send.ChatAction;
 import pro.zackpollard.telegrambot.api.chat.message.send.InputFile;
+import pro.zackpollard.telegrambot.api.chat.message.send.SendableChatAction;
 import pro.zackpollard.telegrambot.api.chat.message.send.SendableVideoMessage;
 import pro.zackpollard.telegrambot.api.event.Listener;
 import pro.zackpollard.telegrambot.api.event.chat.inline.InlineQueryReceivedEvent;
@@ -77,6 +79,8 @@ public class RnMListener implements Listener {
             event.getChat().sendMessage("Don't forget to enter a search term! Usage: /get your search term here", main.getTelegramBot());
             return;
         }
+
+        event.getChat().sendMessage(SendableChatAction.builder().chatAction(ChatAction.UPLOADING_VIDEO).build(), main.getTelegramBot());
 
         JSONArray results = APIHandler.getResults(event.getArgsString());
         if (results == null) {
