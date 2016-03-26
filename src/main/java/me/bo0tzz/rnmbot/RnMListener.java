@@ -98,7 +98,9 @@ public class RnMListener implements Listener {
         }
         System.out.println("get command received for " + event.getArgsString());
 
+        System.out.println("Getting results from API");
         JSONArray results = APIHandler.getResults(event.getArgsString());
+        System.out.println("Got API results");
         if (results == null) {
             event.getChat().sendMessage("Something went wrong while getting the gif! If this happens again, contact the bot maintainer at @bo0tzz.", main.getTelegramBot());
             return;
@@ -116,7 +118,9 @@ public class RnMListener implements Listener {
             event.getChat().sendMessage("Something went wrong while getting the gif! If this happens again, contact the bot maintainer at @bo0tzz.", main.getTelegramBot());
             return;
         }
+        System.out.println("Sending message");
         event.getChat().sendMessage(SendableVideoMessage.builder().video(gif).caption(result.getString("text")).build(), main.getTelegramBot());
+        System.out.println("message sent");
     }
 
     public void randomGIF(CommandMessageReceivedEvent event) {
