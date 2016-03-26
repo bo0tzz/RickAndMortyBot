@@ -15,10 +15,7 @@ import pro.zackpollard.telegrambot.api.event.chat.message.CommandMessageReceived
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Consumer;
 
 /**
@@ -40,7 +37,7 @@ public class RnMListener implements Listener {
         if (event.getQuery().getQuery().equals("")) {
             return;
         }
-        List<InlineQueryResult> queryResults = new ArrayList<>();
+        List<InlineQueryResult> queryResults = new LinkedList<>();
         JSONArray gifResults = APIHandler.getResults(event.getQuery().getQuery());
         if (gifResults.length() == 0) {
             return;
@@ -50,6 +47,10 @@ public class RnMListener implements Listener {
             try {
                 if (gifResults.isNull(i)) {
                     break;
+                }else if (!gifResults.getJSONObject(i).has("url")) {
+                    System.out.println("URL key missing in " + gifResults.getJSONObject(i));
+                } else if (!gifResults.getJSONObject(i).has("text")) {
+                    System.out.println("Text key missing in " + gifResults.getJSONObject(i));
                 }
                 URL url = new URL(gifResults.getJSONObject(i).getString("url"));
                 queryResults.add(InlineQueryResultGif.builder()
