@@ -35,6 +35,9 @@ public class RnMListener implements Listener {
     }
 
     public void onInlineQueryReceived(InlineQueryReceivedEvent event) {
+        if (event.getQuery().getQuery().equals("")) {
+            return;
+        }
         System.out.println("Inline query received: " + event.getQuery().getQuery());
         List<InlineQueryResult> queryResults = new ArrayList<>();
         System.out.println("Results list instantiated");
@@ -73,7 +76,10 @@ public class RnMListener implements Listener {
         }
         System.out.println("Finished element looping");
         System.out.println("building response");
-        System.out.println("Results list: " + queryResults.toArray());
+        System.out.println("Results list: ");
+        queryResults.forEach((r) -> {
+            System.out.println(r);
+        });
         InlineQueryResponse response = InlineQueryResponse.builder()
                 .results(queryResults)
                 .build();
