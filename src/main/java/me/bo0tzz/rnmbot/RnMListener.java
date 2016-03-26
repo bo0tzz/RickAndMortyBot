@@ -43,8 +43,10 @@ public class RnMListener implements Listener {
 
         for (int i = 0; i < gifResults.length(); i++) {
             try {
+                URL url = new URL(gifResults.getJSONObject(i).getString("url"));
                 queryResults.add(InlineQueryResultGif.builder()
-                        .gifUrl(new URL(gifResults.getJSONObject(i).getString("url")))
+                        .gifUrl(url)
+                        .thumbUrl(url)
                         .caption(gifResults.getJSONObject(i).getString("text"))
                         .build()
                 );
