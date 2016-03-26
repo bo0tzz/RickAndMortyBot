@@ -54,6 +54,7 @@ public class RnMListener implements Listener {
                         .build()
                 );
             } catch (MalformedURLException e) {
+                System.out.println("Error on JSONObject: " + gifResults.getJSONObject(i));
                 e.printStackTrace();
             }
         }
