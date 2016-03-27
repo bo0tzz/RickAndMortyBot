@@ -23,6 +23,11 @@ public class APIHandler {
             e.printStackTrace();
             return null;
         }
+
+        if (response.getBody().getObject().has("errorMessage")) {
+            System.out.println("Query " + query + " failed with error message: " + response.getBody().getObject().getString("errorMessage"));
+            return null;
+        }
         return response.getBody().getArray();
     }
 
