@@ -24,7 +24,7 @@ public class APIHandler {
             return null;
         }
 
-        if (response.getBody().getObject().has("errorMessage")) {
+        if (!response.getBody().isArray() && response.getBody().getObject().has("errorMessage")) {
             System.out.println("Query " + query + " failed with error message: " + response.getBody().getObject().getString("errorMessage"));
             return null;
         }
