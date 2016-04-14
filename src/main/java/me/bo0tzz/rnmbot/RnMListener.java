@@ -5,10 +5,7 @@ import org.json.JSONObject;
 import pro.zackpollard.telegrambot.api.chat.inline.send.InlineQueryResponse;
 import pro.zackpollard.telegrambot.api.chat.inline.send.results.InlineQueryResult;
 import pro.zackpollard.telegrambot.api.chat.inline.send.results.InlineQueryResultGif;
-import pro.zackpollard.telegrambot.api.chat.message.send.ChatAction;
-import pro.zackpollard.telegrambot.api.chat.message.send.InputFile;
-import pro.zackpollard.telegrambot.api.chat.message.send.SendableChatAction;
-import pro.zackpollard.telegrambot.api.chat.message.send.SendableVideoMessage;
+import pro.zackpollard.telegrambot.api.chat.message.send.*;
 import pro.zackpollard.telegrambot.api.event.Listener;
 import pro.zackpollard.telegrambot.api.event.chat.inline.InlineQueryReceivedEvent;
 import pro.zackpollard.telegrambot.api.event.chat.message.CommandMessageReceivedEvent;
@@ -103,7 +100,7 @@ public class RnMListener implements Listener {
             event.getChat().sendMessage("Something went wrong while getting the gif! If this happens again, contact the bot maintainer at @bo0tzz.", main.getTelegramBot());
             return;
         }
-        event.getChat().sendMessage(SendableVideoMessage.builder().video(gif).caption(result.getString("text")).build(), main.getTelegramBot());
+        event.getChat().sendMessage(SendableDocumentMessage.builder().document(gif).caption(result.getString("text")).build(), main.getTelegramBot());
     }
 
     public void randomGIF(CommandMessageReceivedEvent event) {
@@ -120,6 +117,6 @@ public class RnMListener implements Listener {
             event.getChat().sendMessage("Something went wrong while getting the gif! If this happens again, contact the bot maintainer at @bo0tzz.", main.getTelegramBot());
             return;
         }
-        event.getChat().sendMessage(SendableVideoMessage.builder().video(gif).caption(result.getString("url")).build(), main.getTelegramBot());
+        event.getChat().sendMessage(SendableDocumentMessage.builder().document(gif).caption(result.getString("url")).build(), main.getTelegramBot());
     }
 }
