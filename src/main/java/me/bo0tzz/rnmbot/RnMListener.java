@@ -76,18 +76,18 @@ public class RnMListener implements Listener {
 
     public void getGIF(CommandMessageReceivedEvent event) {
         if (event.getArgsString() == null || event.getArgsString().equals("")) {
-            event.getChat().sendMessage("Don't forget to enter a search term! Usage: /get your search term here", main.getTelegramBot());
+            event.getChat().sendMessage("Don't forget to enter a search term! Usage: /get your search term here");
             return;
         }
 
-        event.getChat().sendMessage(SendableChatAction.builder().chatAction(ChatAction.UPLOADING_VIDEO).build(), main.getTelegramBot());
+        event.getChat().sendMessage(SendableChatAction.builder().chatAction(ChatAction.UPLOADING_VIDEO).build());
 
         JSONArray results = APIHandler.getResults(event.getArgsString());
         if (results == null) {
-            event.getChat().sendMessage("Something went wrong while getting the gif! If this happens again, contact the bot maintainer at @bo0tzz.", main.getTelegramBot());
+            event.getChat().sendMessage("Something went wrong while getting the gif! If this happens again, contact the bot maintainer at @bo0tzz.");
             return;
         } else if (results.length() == 0) {
-            event.getChat().sendMessage("Couldn't find a gif! Try again with a different term.", main.getTelegramBot());
+            event.getChat().sendMessage("Couldn't find a gif! Try again with a different term.");
             return;
         }
 
@@ -97,16 +97,16 @@ public class RnMListener implements Listener {
             gif = new InputFile(new URL(result.getString("url")));
         } catch (MalformedURLException e) {
             e.printStackTrace();
-            event.getChat().sendMessage("Something went wrong while getting the gif! If this happens again, contact the bot maintainer at @bo0tzz.", main.getTelegramBot());
+            event.getChat().sendMessage("Something went wrong while getting the gif! If this happens again, contact the bot maintainer at @bo0tzz.");
             return;
         }
-        event.getChat().sendMessage(SendableDocumentMessage.builder().document(gif).caption(result.getString("text")).build(), main.getTelegramBot());
+        event.getChat().sendMessage(SendableDocumentMessage.builder().document(gif).caption(result.getString("text")).build());
     }
 
     public void randomGIF(CommandMessageReceivedEvent event) {
         JSONObject result = APIHandler.getRandomGIF();
         if (result == null) {
-            event.getChat().sendMessage("Something went wrong while getting the gif! If this happens again, contact the bot maintainer at @bo0tzz.", main.getTelegramBot());
+            event.getChat().sendMessage("Something went wrong while getting the gif! If this happens again, contact the bot maintainer at @bo0tzz.");
             return;
         }
         InputFile gif;
@@ -114,9 +114,9 @@ public class RnMListener implements Listener {
             gif = new InputFile(new URL(result.getString("url")));
         } catch (MalformedURLException e) {
             e.printStackTrace();
-            event.getChat().sendMessage("Something went wrong while getting the gif! If this happens again, contact the bot maintainer at @bo0tzz.", main.getTelegramBot());
+            event.getChat().sendMessage("Something went wrong while getting the gif! If this happens again, contact the bot maintainer at @bo0tzz.");
             return;
         }
-        event.getChat().sendMessage(SendableDocumentMessage.builder().document(gif).caption(result.getString("url")).build(), main.getTelegramBot());
+        event.getChat().sendMessage(SendableDocumentMessage.builder().document(gif).caption(result.getString("url")).build());
     }
 }
