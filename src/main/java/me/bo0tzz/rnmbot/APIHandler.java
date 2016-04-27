@@ -3,9 +3,7 @@ package me.bo0tzz.rnmbot;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.exceptions.UnirestException;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -40,6 +38,8 @@ public class APIHandler {
             return null;
         }
         if (response.getBody().getObject().optString("message").equals("Missing Authentication Token")) {
+            System.out.println("Error in reply: ");
+            System.out.println(response.getBody().getObject().toString());
             return null;
         }
         return response.getBody().getObject();
